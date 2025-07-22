@@ -1,4 +1,5 @@
 import sys
+import os
 import argparse
 import struct
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QHBoxLayout,
@@ -735,10 +736,11 @@ class MainWindow(QMainWindow):
 # ----------------------- Entry Point -----------------------
 
 if __name__ == '__main__':
-    with open(args.file_path, 'rb') as f:
-        data = f.read()
+    if os.path.exists(args.file_path):
+        with open(args.file_path, 'rb') as f:
+            data = f.read()
 
-    app = QApplication(sys.argv)
-    window = MainWindow(data, args.index)
-    window.show()
-    sys.exit(app.exec_())
+        app = QApplication(sys.argv)
+        window = MainWindow(data, args.index)
+        window.show()
+        sys.exit(app.exec_())
